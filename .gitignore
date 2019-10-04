@@ -1,4 +1,6 @@
 # Files to be ignored
 .ipynb
+cars_test.csv
+cars_train.csv
 # Folders to be ignored
 
