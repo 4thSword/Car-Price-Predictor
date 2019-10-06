@@ -1,6 +1,9 @@
 # Files to be ignored
-.ipynb
-cars_test.csv
-cars_train.csv
+
+*.csv
+# Jupyter NB files for tests
+performance_tests.ipynb
+.ipynb_checkpoints
+
 # Folders to be ignored
 
