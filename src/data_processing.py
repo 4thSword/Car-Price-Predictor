@@ -30,10 +30,25 @@ def clean_dataframe(df):
     categorical = ['drive','size','paint_color','type','manufacturer']
     for category in categorical:
         df[category] = df[category].fillna('unknown')
+    # Cleaning manufacturer:
+    df['manufacturer'] = df['manufacturer'].str.replace('alfa-romeo','alfa')
+    df['manufacturer'] = df['manufacturer'].str.replace('aston-martin','aston')
+    df['manufacturer'] = df['manufacturer'].str.replace('chevrolet','chev')
+    df['manufacturer'] = df['manufacturer'].str.replace('chevy','chev')
+    df['manufacturer'] = df['manufacturer'].str.replace('harley-davidson','harley')
+    df['manufacturer'] = df['manufacturer'].str.replace('infinity','infiniti')
+    df['manufacturer'] = df['manufacturer'].str.replace('land rover','landrover')
+    df['manufacturer'] = df['manufacturer'].str.replace('mercedes-benz','mercedes')
+    df['manufacturer'] = df['manufacturer'].str.replace('mercedesbenz','mercedes')
+    df['manufacturer'] = df['manufacturer'].str.replace('vw','volkswagen')
+    
     # filling the empty values of year category with the median in order to don't let our model to be affected by the outliers.
     df['year'] = df['year'].fillna(training['year'].median())
     # getting dummies to be able to apply our model
     df = pd.get_dummies(df)
+    for column in df:
+        if "unknown" in column:
+            df.drop(columns = [column],inplace=True)
     return df
 
 
@@ -50,7 +65,7 @@ if __name__ == "__main__":
 
     training_clean = clean_dataframe(training)
     test_clean = clean_dataframe(test)
-    print(set(training_clean)-set(test_clean))
+    
 
     #Third step: Standarization
     standarize = StandardScaler()
@@ -59,8 +74,8 @@ if __name__ == "__main__":
     test_clean[['year','odometer']]= standarize.transform(test_clean[['year','odometer']])
 
     # Frouth step: Export data to csv
-    training_clean.to_csv(OUTPUT_TRAIN_PATH)
-    test_clean.to_csv(OUTPUT_TEST_PATH)
+    training_clean.to_csv(OUTPUT_TRAIN_PATH,index=False)
+    test_clean.to_csv(OUTPUT_TEST_PATH,index=False)
     
     
     
