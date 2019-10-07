@@ -20,7 +20,7 @@ def clean_dataframe(df):
     # Clean column by column all data to be able to let our model work properly.
     
     # Dropping columns that I think that could't give us enogh infomration for our prediction
-    df.drop(['long','lat','county_fips','state_fips','state_code','state_name','city','weather','make','county_name'],axis=1, inplace=True)
+    df.drop(['county_fips','state_fips','state_code','state_name','city','weather','make','county_name'],axis=1, inplace=True)
     # Cleaning the cylinders column
     df['cylinders'] = df.cylinders.str.strip('cylinders')
     df['cylinders'] = df.cylinders.str.replace('oth', '0')
@@ -69,9 +69,9 @@ if __name__ == "__main__":
 
     #Third step: Standarization
     standarize = StandardScaler()
-    standarize.fit(training_clean[['year','odometer']])
-    training_clean[['year','odometer']]= standarize.transform(training_clean[['year','odometer']])
-    test_clean[['year','odometer']]= standarize.transform(test_clean[['year','odometer']])
+    standarize.fit(training_clean[['year','odometer','long','lat']])
+    training_clean[['year','odometer','long','lat']]= standarize.transform(training_clean[['year','odometer','long','lat']])
+    test_clean[['year','odometer','long','lat']]= standarize.transform(test_clean[['year','odometer','long','lat']])
 
     # Frouth step: Export data to csv
     training_clean.to_csv(OUTPUT_TRAIN_PATH,index=False)
