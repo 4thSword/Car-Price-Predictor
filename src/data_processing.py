@@ -59,15 +59,20 @@ if __name__ == "__main__":
     
 
     #Third step: Standarization
+
     standarize = StandardScaler()
     standarize.fit(training_clean[['year','odometer','cylinders','long','lat']])
     training_clean[['year','odometer','cylinders','long','lat']]= standarize.transform(training_clean[['year','odometer','cylinders','long','lat']])
     test_clean[['year','odometer','cylinders','long','lat']]= standarize.transform(test_clean[['year','odometer','cylinders','long','lat']])
+ 
 
     # Frouth step: Export data to csv
+
     training_clean.to_csv(OUTPUT_TRAIN_PATH,index=False)
     test_clean.to_csv(OUTPUT_TEST_PATH,index=False)
     
-     # Adding metrics to a log, for next study of better model.
+
+    # Adding metrics to a log, for next study of better model.
+    
     with open('../output/log.txt',"a+") as f: 
         f.write("DATA PROCESSING | COLUMNS BEFORE PCA: {} \n".format(training.columns)) 
