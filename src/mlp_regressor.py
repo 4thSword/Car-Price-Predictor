@@ -55,4 +55,4 @@ if __name__ == "__main__":
 
     # Adding metrics to a log, for next study of better model.
     with open('../output/log.txt',"a+") as f: 
-        f.write("RMSE: {} | MODEL: MLPRegressor | HIDDEN lAYERS= {} | COLUMNS: {} \n".format(rmse, h_layers, training.columns.count()))
+        f.write("RMSE: {} | MODEL: MLPRegressor | HIDDEN lAYERS= {} | COLUMNS: {} \n".format(rmse, h_layers, len(training.columns)))

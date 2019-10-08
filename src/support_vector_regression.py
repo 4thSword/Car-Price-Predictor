@@ -55,5 +55,5 @@ if __name__ == "__main__":
 
     # Adding metrics to a log, for next study of better model.
     with open('../output/log.txt',"a+") as f: 
-        f.write("RMSE: {} | MODEL: SVR | GAMMA= {} | COLUMNS: {} \n".format(rmse, gamma, training.columns.sum()))   
+        f.write("RMSE: {} | MODEL: SVR | GAMMA= {} | COLUMNS: {} \n".format(rmse, gamma, len(training.columns)))   
 
