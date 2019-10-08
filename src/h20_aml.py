@@ -38,15 +38,21 @@ if __name__ == "__main__":
     y_train_pred = aml.predict(x_test)
 
     # Metrics:
-    rmse = mean_squared_error(y,y_train_pred)
-    print(rmse)
+    try:
+        y_pred = aml.predict(x)
+        y_pred = p_pred.as_data_frame(use_pandas=True)
+        y_train = train[y].as_data_frame(use_pandas=True)
+        rmse = mean_squared_error(y_train,y_pred)
+        print(rmse)
+    except:
+        pass)
 
     #Output generation:
     submission = test['Id']
     submission['Price'] = y_train_pred
     submission = submission.as_data_frame(use_pandas=True)
 
-    submission.to_csv('output/submission.csv',index=False)
+    submission.to_csv('./output/submission.csv',index=False)
 
     # Adding metrics to a log, for next study of better model.
     with open('../output/log.txt',"a+") as f: 
