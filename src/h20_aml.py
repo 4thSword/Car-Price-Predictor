@@ -2,7 +2,7 @@
 import pandas as pd
 import h2o
 from h2o.automl import H2OAutoML
-
+from sklearn.metrics import mean_squared_error
 
 # Gloal constants:
 TRAIN_PATH = "../input/processed_train.csv"
@@ -28,7 +28,7 @@ if __name__ == "__main__":
     x_test = test.drop(['Id'],axis=1)
 
     # Model Initialization and training:
-    max_models = 20
+    max_models = 30
     seed = 1
 
     aml = H2OAutoML(max_models= max_models, seed=seed)
@@ -36,6 +36,10 @@ if __name__ == "__main__":
 
     #Predict result:
     y_train_pred = aml.predict(x_test)
+
+    # Metrics:
+    rmse = mean_squared_error(y,y_train_pred)
+    print(rmse)
 
     #Output generation:
     submission = test['Id']
