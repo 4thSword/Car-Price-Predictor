@@ -45,7 +45,7 @@ if __name__ == "__main__":
         rmse = mean_squared_error(y_train,y_pred)
         print(rmse)
     except:
-        pass)
+        rmse = "unknown"
 
     #Output generation:
     submission = test['Id']
